@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  livenessProbe:
+    httpGet:
+	path: /healthz
+	port: 80
+	httpHeaders:
+	- name: purpose
+	  value: health-check
+	initailDelaySeconds: 3 // 처음에 생성시간 3초를 기다림
+        periodSeconds: 3 // 주기적으로 3초에 한 번씩 체크
